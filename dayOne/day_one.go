@@ -2,6 +2,7 @@ package dayOne
 
 import (
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -15,12 +16,7 @@ func ReadFile(filename string) (string, error) {
 	return output, nil
 }
 
-func FindMaxElfCalories(filename string) (int, error) {
-	input, err := ReadFile(filename)
-	if err != nil {
-		return 0, err
-	}
-
+func sumCaloriesCarried(input string) ([]int, error) {
 	caloriesArray := strings.Split(input, "\n")
 
 	var elfCaloricSums []int
@@ -34,7 +30,7 @@ func FindMaxElfCalories(filename string) (int, error) {
 		} else if index == len(caloriesArray)-1 {
 			i, err := strconv.Atoi(ch)
 			if err != nil {
-				return 0, err
+				return nil, err
 			}
 			count += i
 			elfCaloricSums = append(elfCaloricSums, count)
@@ -42,16 +38,59 @@ func FindMaxElfCalories(filename string) (int, error) {
 		}
 		i, err := strconv.Atoi(ch)
 		if err != nil {
-			return 0, err
+			return nil, err
 		}
 		count += i
 	}
+	return elfCaloricSums, nil
+}
 
+func FindMaxElfCalories(filename string) (int, error) {
+	input, err := ReadFile(filename)
+	if err != nil {
+		return 0, err
+	}
+
+	elfCaloricSums, err := sumCaloriesCarried(input)
+	if err != nil {
+		return 0, nil
+	}
+
+	mostCalories := findTopElf(elfCaloricSums)
+	return mostCalories, nil
+}
+
+func findTopElf(elfCaloricSums []int) int {
 	maxCaloriesCarried := 0
 	for _, i := range elfCaloricSums {
 		if i > maxCaloriesCarried {
 			maxCaloriesCarried = i
 		}
 	}
-	return maxCaloriesCarried, nil
+	return maxCaloriesCarried
+}
+
+func FindSumTopThreeElfTotalCalories(filename string) (int, error) {
+	input, err := ReadFile(filename)
+	if err != nil {
+		return 0, err
+	}
+
+	elfCaloricSums, err := sumCaloriesCarried(input)
+	if err != nil {
+		return 0, nil
+	}
+
+	topThree := findTopThreeElves(elfCaloricSums)
+	topThreeSum := 0
+	for _, i := range topThree {
+		topThreeSum += i
+	}
+	return topThreeSum, nil
+}
+
+func findTopThreeElves(elfCaloricSums []int) []int {
+	sort.Ints(elfCaloricSums)
+
+	return elfCaloricSums[len(elfCaloricSums)-3:]
 }

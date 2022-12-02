@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	maxCalories, err := dayOne.FindMaxElfCalories("puzzle_input_1.txt")
+	maxCalories, err := dayOne.FindSumTopThreeElfTotalCalories("puzzle_input_1.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
