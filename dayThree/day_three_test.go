@@ -17,7 +17,7 @@ func TestCalculateSumOfDuplicateItemPriority(t *testing.T) {
 func TestCalculateSumOfDuplicateElfBadges(t *testing.T) {
 	got, err := CalculateSumOfDuplicateElfBadges("test_input.txt")
 	if err != nil {
-		t.Errorf("test: %v error: %v", "CalculateSumOfDuplicateItemPriority", err)
+		t.Errorf("test: %v error: %v", "CalculateSumOfDuplicateElfBadges", err)
 	}
 	want := 70
 

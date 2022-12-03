@@ -56,5 +56,35 @@ func CalculateSumOfDuplicateItemPriority(filename string) (int, error) {
 }
 
 func CalculateSumOfDuplicateElfBadges(filename string) (int, error) {
-	return 0, nil
+	rucksacks, err := common.ReadFile(filename)
+	if err != nil {
+		return 0, err
+	}
+
+	letterPriorityMap := createAlphabetToPriorityMap()
+	score := 0
+
+	for i := 0; i < len(rucksacks); i += 3 {
+		m1 := make(map[string]bool)
+		m2 := make(map[string]bool)
+
+		for _, item := range rucksacks[i] {
+			m1[string(item)] = true
+		}
+
+		for _, item := range rucksacks[i+1] {
+			if _, ok := m1[string(item)]; ok {
+				m2[string(item)] = true
+			}
+		}
+
+		for _, item := range rucksacks[i+2] {
+			if _, ok := m2[string(item)]; ok {
+				score += letterPriorityMap[string(item)]
+				break
+			}
+		}
+	}
+
+	return score, nil
 }
