@@ -13,3 +13,15 @@ func TestCalculateRockPaperScissorsScore(t *testing.T) {
 		t.Errorf("got = %v want = %v", got, want)
 	}
 }
+
+func TestCalculateFinalRockPaperScissorsScore(t *testing.T) {
+	got, err := CalculateFinalRockPaperScissorsScore("test_input_2.txt")
+	if err != nil {
+		t.Errorf("test: %v error: %v", "CalculateRockPaperScissorsScore", err)
+	}
+	want := 12
+
+	if got != want {
+		t.Errorf("got = %v want = %v", got, want)
+	}
+}

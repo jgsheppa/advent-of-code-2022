@@ -12,7 +12,7 @@ func main() {
 		fmt.Printf("Received following error: %v", err)
 	}
 
-	totalPoints, err := dayTwo.CalculateRockPaperScissorsScore("puzzle_input_2.txt")
+	totalPoints, err := dayTwo.CalculateFinalRockPaperScissorsScore("puzzle_input_2.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
