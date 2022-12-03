@@ -2,18 +2,9 @@ package dayTwo
 
 import (
 	"fmt"
-	"os"
+	"github.com/jgsheppa/advent-of-code-2022/common"
 	"strings"
 )
-
-func readFile(filename string) ([]string, error) {
-	b, err := os.ReadFile(filename)
-	if err != nil {
-		return nil, err
-	}
-	output := strings.TrimSpace(string(b))
-	return strings.Split(output, "\n"), nil
-}
 
 type MoveInformation struct {
 	points     int
@@ -22,7 +13,7 @@ type MoveInformation struct {
 }
 
 func CalculateRockPaperScissorsScore(filename string) (int, error) {
-	input, err := readFile(filename)
+	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}
@@ -65,7 +56,7 @@ type FullMoveInformation struct {
 }
 
 func CalculateFinalRockPaperScissorsScore(filename string) (int, error) {
-	input, err := readFile(filename)
+	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}

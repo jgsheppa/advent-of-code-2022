@@ -1,33 +1,22 @@
 package dayOne
 
 import (
-	"os"
+	"github.com/jgsheppa/advent-of-code-2022/common"
 	"sort"
 	"strconv"
-	"strings"
 )
 
-func ReadFile(filename string) (string, error) {
-	b, err := os.ReadFile(filename)
-	if err != nil {
-		return "", err
-	}
-	output := string(b)
-	return output, nil
-}
-
-func sumCaloriesCarried(input string) ([]int, error) {
-	caloriesArray := strings.Split(input, "\n")
+func sumCaloriesCarried(input []string) ([]int, error) {
 
 	var elfCaloricSums []int
 	count := 0
 
-	for index, ch := range caloriesArray {
+	for index, ch := range input {
 		if len(ch) == 0 {
 			elfCaloricSums = append(elfCaloricSums, count)
 			count = 0
 			continue
-		} else if index == len(caloriesArray)-1 {
+		} else if index == len(input)-1 {
 			i, err := strconv.Atoi(ch)
 			if err != nil {
 				return nil, err
@@ -46,7 +35,7 @@ func sumCaloriesCarried(input string) ([]int, error) {
 }
 
 func FindMaxElfCalories(filename string) (int, error) {
-	input, err := ReadFile(filename)
+	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}
@@ -71,7 +60,7 @@ func findTopElf(elfCaloricSums []int) int {
 }
 
 func FindSumTopThreeElfTotalCalories(filename string) (int, error) {
-	input, err := ReadFile(filename)
+	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}

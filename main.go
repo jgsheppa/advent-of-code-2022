@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/jgsheppa/advent-of-code-2022/dayOne"
-	"github.com/jgsheppa/advent-of-code-2022/dayTwo"
+	"github.com/jgsheppa/advent-of-code-2022/dayThree"
 )
 
 func main() {
@@ -12,9 +12,9 @@ func main() {
 		fmt.Printf("Received following error: %v", err)
 	}
 
-	totalPoints, err := dayTwo.CalculateFinalRockPaperScissorsScore("puzzle_input_2.txt")
+	sum, err := dayThree.CalculateSumOfDuplicateElfBadges("puzzle_input_3.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
-	fmt.Println(totalPoints)
+	fmt.Printf("CalculateSumOfDuplicateItemPriority: %v", sum)
 }
