@@ -3,9 +3,9 @@ package dayFour
 import "testing"
 
 func TestCalculateEntireOverlappingSections(t *testing.T) {
-	got, err := CalculateEntireOverlappingSections("test_input.txt")
+	got, err := CalculateSectionsContainingOtherSections("test_input.txt")
 	if err != nil {
-		t.Errorf("test: %v error: %v", "CalculateEntireOverlappingSections", err)
+		t.Errorf("test: %v error: %v", "CalculateSectionsContainingOtherSections", err)
 	}
 	want := 2
 

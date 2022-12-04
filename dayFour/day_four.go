@@ -11,7 +11,7 @@ type Section struct {
 	end   int
 }
 
-func CalculateEntireOverlappingSections(filename string) (int, error) {
+func CalculateSectionsContainingOtherSections(filename string) (int, error) {
 	testData, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
