@@ -6,19 +6,22 @@ import (
 	"strings"
 )
 
-type MoveInformation struct {
+type moveInformation struct {
 	points     int
 	equivalent string
 	win        string
 }
 
+// CalculateRockPaperScissorsScore calculates the total score of a
+// Rock, Paper, Scissor player's rounds based on their move and the
+// result of the round
 func CalculateRockPaperScissorsScore(filename string) (int, error) {
 	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}
 
-	moveMap := map[string]MoveInformation{
+	moveMap := map[string]moveInformation{
 		"X": {1, "A", "C"},
 		"Y": {2, "B", "A"},
 		"Z": {3, "C", "B"},
@@ -48,20 +51,22 @@ func CalculateRockPaperScissorsScore(filename string) (int, error) {
 	return resultPoints + movePoints, nil
 }
 
-type FullMoveInformation struct {
+type fullMoveInformation struct {
 	points int
 	win    string
 	loss   string
 	draw   string
 }
 
+// CalculateFinalRockPaperScissorsScore determines the sum of a player's
+// moves and the result of each round, based on the player's strategy
 func CalculateFinalRockPaperScissorsScore(filename string) (int, error) {
 	input, err := common.ReadFile(filename)
 	if err != nil {
 		return 0, err
 	}
 
-	moveMap := map[string]FullMoveInformation{
+	moveMap := map[string]fullMoveInformation{
 		"A": {1, "C", "B", "A"},
 		"B": {2, "A", "C", "B"},
 		"C": {3, "B", "A", "C"},

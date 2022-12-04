@@ -6,11 +6,17 @@ import (
 	"strings"
 )
 
+// Section contains the start and end
+// of an elf's cleaning section
 type Section struct {
+	// start is the beginning of the elf's cleaning section
 	start int
-	end   int
+	// end is the end of the elf's cleaning section
+	end int
 }
 
+// CalculateSectionsContainingOtherSections finds section pairs in which one
+// section is contained in the second and returns the sum of such pairs
 func CalculateSectionsContainingOtherSections(filename string) (int, error) {
 	testData, err := common.ReadFile(filename)
 	if err != nil {
@@ -22,24 +28,9 @@ func CalculateSectionsContainingOtherSections(filename string) (int, error) {
 	for _, pair := range testData {
 		splitSections := strings.Split(pair, ",")
 
-		sectionsAsNumbers := make(map[int]Section)
-
-		for index, section := range splitSections {
-			split := strings.Split(section, "-")
-			start, err := strconv.Atoi(split[0])
-			if err != nil {
-				return 0, err
-			}
-			finish, err := strconv.Atoi(split[1])
-			if err != nil {
-				return 0, err
-			}
-
-			sectionsAsNumbers[index] = Section{
-				start,
-				finish,
-			}
-
+		sectionsAsNumbers, err := createMapOfSectionNumbers(splitSections)
+		if err != nil {
+			return 0, nil
 		}
 
 		switch true {
@@ -54,6 +45,30 @@ func CalculateSectionsContainingOtherSections(filename string) (int, error) {
 	return overLappingSections, nil
 }
 
+func createMapOfSectionNumbers(stringSections []string) (map[int]Section, error) {
+	sectionsAsNumbers := make(map[int]Section)
+
+	for index, section := range stringSections {
+		split := strings.Split(section, "-")
+		start, err := strconv.Atoi(split[0])
+		if err != nil {
+			return nil, err
+		}
+		finish, err := strconv.Atoi(split[1])
+		if err != nil {
+			return nil, err
+		}
+
+		sectionsAsNumbers[index] = Section{
+			start,
+			finish,
+		}
+	}
+	return sectionsAsNumbers, nil
+}
+
+// CalculateOverlappingSections finds section pairs in which any
+// parts of the sections overlap and returns the sum of these pairs
 func CalculateOverlappingSections(filename string) (int, error) {
 	testData, err := common.ReadFile(filename)
 	if err != nil {
@@ -65,24 +80,9 @@ func CalculateOverlappingSections(filename string) (int, error) {
 	for _, pair := range testData {
 		splitSections := strings.Split(pair, ",")
 
-		sectionsAsNumbers := make(map[int]Section)
-
-		for index, section := range splitSections {
-			split := strings.Split(section, "-")
-			start, err := strconv.Atoi(split[0])
-			if err != nil {
-				return 0, err
-			}
-			finish, err := strconv.Atoi(split[1])
-			if err != nil {
-				return 0, err
-			}
-
-			sectionsAsNumbers[index] = Section{
-				start,
-				finish,
-			}
-
+		sectionsAsNumbers, err := createMapOfSectionNumbers(splitSections)
+		if err != nil {
+			return 0, nil
 		}
 
 		switch true {

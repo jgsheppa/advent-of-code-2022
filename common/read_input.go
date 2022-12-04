@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// ReadFile reads a file, splits the data into
+// an array of strings by line break, and returns
+// this array
 func ReadFile(filename string) ([]string, error) {
 	b, err := os.ReadFile(filename)
 	if err != nil {

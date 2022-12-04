@@ -6,8 +6,9 @@ import (
 	"strconv"
 )
 
+// sumCaloriesCarried creates an array of the sums of calories
+// carried by each elf
 func sumCaloriesCarried(input []string) ([]int, error) {
-
 	var elfCaloricSums []int
 	count := 0
 
@@ -34,6 +35,8 @@ func sumCaloriesCarried(input []string) ([]int, error) {
 	return elfCaloricSums, nil
 }
 
+// FindMaxElfCalories finds the greatest number of calories
+// carried by an elf in the supplied data set
 func FindMaxElfCalories(filename string) (int, error) {
 	input, err := common.ReadFile(filename)
 	if err != nil {
@@ -49,6 +52,7 @@ func FindMaxElfCalories(filename string) (int, error) {
 	return mostCalories, nil
 }
 
+// findTopElf finds the elf carrying the most calories
 func findTopElf(elfCaloricSums []int) int {
 	maxCaloriesCarried := 0
 	for _, i := range elfCaloricSums {
@@ -59,6 +63,8 @@ func findTopElf(elfCaloricSums []int) int {
 	return maxCaloriesCarried
 }
 
+// FindSumTopThreeElfTotalCalories finds the three elves carrying
+// the most calories and returns the sum of their calories
 func FindSumTopThreeElfTotalCalories(filename string) (int, error) {
 	input, err := common.ReadFile(filename)
 	if err != nil {
@@ -78,6 +84,8 @@ func FindSumTopThreeElfTotalCalories(filename string) (int, error) {
 	return topThreeSum, nil
 }
 
+// findTopThreeElves sorts the calorie sums of each elf
+// and returns the three elves with the most calories
 func findTopThreeElves(elfCaloricSums []int) []int {
 	sort.Ints(elfCaloricSums)
 
