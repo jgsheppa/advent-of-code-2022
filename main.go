@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/jgsheppa/advent-of-code-2022/dayFour"
 	"github.com/jgsheppa/advent-of-code-2022/dayOne"
-	"github.com/jgsheppa/advent-of-code-2022/dayThree"
 )
 
 func main() {
@@ -12,9 +12,9 @@ func main() {
 		fmt.Printf("Received following error: %v", err)
 	}
 
-	sum, err := dayThree.CalculateSumOfDuplicateElfBadges("puzzle_input_3.txt")
+	sum, err := dayFour.CalculateOverlappingSections("puzzle_input_4.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
-	fmt.Printf("CalculateSumOfDuplicateItemPriority: %v", sum)
+	fmt.Printf("CalculateOverlappingSections: %v \n", sum)
 }
