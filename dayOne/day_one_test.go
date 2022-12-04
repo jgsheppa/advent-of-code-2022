@@ -47,7 +47,7 @@ func ExampleFindMaxElfCalories() {
 		fmt.Errorf("test: %v error: %v", "TestFindMaxElfCalories", err)
 	}
 	fmt.Println(got)
-	// Output: 10000
+	// Output: 5000
 }
 
 func ExampleFindSumTopThreeElfTotalCalories() {
@@ -56,5 +56,5 @@ func ExampleFindSumTopThreeElfTotalCalories() {
 		fmt.Errorf("test: %v error: %v", "TestFindMaxElfCalories", err)
 	}
 	fmt.Println(got)
-	// Output: 5000
+	// Output: 10000
 }
