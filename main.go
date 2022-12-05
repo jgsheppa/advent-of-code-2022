@@ -2,19 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/jgsheppa/advent-of-code-2022/dayFour"
-	"github.com/jgsheppa/advent-of-code-2022/dayOne"
+	"github.com/jgsheppa/advent-of-code-2022/dayFive"
 )
 
 func main() {
-	_, err := dayOne.FindSumTopThreeElfTotalCalories("puzzle_input_1.txt")
+	topCrates, err := dayFive.FindTopCrates("puzzle_input_5.txt", "puzzle_input_5_map.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
-
-	sum, err := dayFour.CalculateOverlappingSections("puzzle_input_4.txt")
-	if err != nil {
-		fmt.Printf("Received following error: %v", err)
-	}
-	fmt.Printf("CalculateOverlappingSections: %v \n", sum)
+	fmt.Printf("FindTopCrates: %v \n", topCrates)
 }
