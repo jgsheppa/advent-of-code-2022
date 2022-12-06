@@ -16,3 +16,12 @@ func ReadFile(filename string) ([]string, error) {
 	output := string(b)
 	return strings.Split(output, "\n"), nil
 }
+
+func ReadSignal(filename string) (string, error) {
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	output := string(b)
+	return output, nil
+}
