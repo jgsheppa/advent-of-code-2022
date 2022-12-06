@@ -5,6 +5,7 @@ import (
 	"github.com/jgsheppa/advent-of-code-2022/common"
 	"sort"
 	"strconv"
+	"strings"
 	"unicode"
 )
 
@@ -19,18 +20,18 @@ type CrateDirection struct {
 	destination string
 }
 
-func MoveCrate(origin, dest []string, count int) ([]string, []string) {
+func MoveCrateWithCrateMover9000(origin, dest []string, count int) ([]string, []string) {
 	var ret []string
 
-	if len(origin)+1 == count {
+	if len(origin) == count {
 		ret = append(ret, origin[:]...)
-	} else if len(origin) > 0 {
-		fmt.Printf("origin length: %v count: %v \n", len(origin), count)
+	} else if len(origin) > 0 || len(origin) < count {
 		ret = append(ret, origin[count:]...)
 	}
 
 	var ter []string
-	if len(origin) > 0 {
+
+	if len(origin) > 0 || len(origin) < count {
 		for i := count - 1; i > -1; i-- {
 			ter = append(ter, origin[i])
 		}
@@ -72,7 +73,7 @@ func FindTopCrates(filename, crateMap string) (string, error) {
 	for _, key := range keySlice {
 		direction := crateDirections[key]
 
-		origin, destination := MoveCrate(crateTracker[direction.origin].crates, crateTracker[direction.destination].crates, direction.count)
+		origin, destination := MoveCrateWithCrateMover9000(crateTracker[direction.origin].crates, crateTracker[direction.destination].crates, direction.count)
 
 		crateTracker[direction.origin] = CrateColumn{origin, crateTracker[direction.origin].index}
 		crateTracker[direction.destination] = CrateColumn{destination, crateTracker[direction.destination].index}
@@ -93,12 +94,14 @@ func FindTopCrates(filename, crateMap string) (string, error) {
 
 func transformCrateMovementDirections(moves []string) (map[int]CrateDirection, error) {
 	directions := make(map[int]CrateDirection)
-
 	for index, move := range moves {
+		splitMoves := strings.Split(move, " ")
+
 		var movement []string
-		for _, ch := range move {
-			if unicode.IsNumber(ch) {
-				movement = append(movement, string(ch))
+		for _, ch := range splitMoves {
+			_, err := strconv.Atoi(ch)
+			if err == nil {
+				movement = append(movement, ch)
 			}
 		}
 		count, err := strconv.Atoi(movement[0])
@@ -106,13 +109,8 @@ func transformCrateMovementDirections(moves []string) (map[int]CrateDirection, e
 			return nil, err
 		}
 		origin := movement[1]
-		if err != nil {
-			return nil, err
-		}
 		dest := movement[2]
-		if err != nil {
-			return nil, err
-		}
+
 		directions[index] = CrateDirection{count, origin, dest}
 	}
 
@@ -147,4 +145,76 @@ func transformInitialCrateMap(crates, columns []string, columnNumber int) (map[s
 	}
 
 	return crateTracker, columns
+}
+
+func FindTopCratesWithCrateMover9001(filename, crateMap string) (string, error) {
+	moves, err := common.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	crateDirections, err := transformCrateMovementDirections(moves)
+	if err != nil {
+		return "", err
+	}
+
+	crates, err := common.ReadFile(crateMap)
+	if err != nil {
+		return "", err
+	}
+
+	columnCount := 0
+	var columnIds []string
+
+	crateTracker, columnIdsFull := transformInitialCrateMap(crates, columnIds, columnCount)
+
+	// Let's get a slice of all keys
+	keySlice := make([]int, 0)
+	for key, _ := range crateDirections {
+		keySlice = append(keySlice, key)
+	}
+
+	// Now sort the slice
+	sort.Ints(keySlice)
+
+	// Iterate over all keys in a sorted order
+	for _, key := range keySlice {
+		direction := crateDirections[key]
+
+		origin, destination := MoveCrateWithCrateMover9001(crateTracker[direction.origin].crates, crateTracker[direction.destination].crates, direction.count)
+
+		crateTracker[direction.origin] = CrateColumn{origin, crateTracker[direction.origin].index}
+		crateTracker[direction.destination] = CrateColumn{destination, crateTracker[direction.destination].index}
+
+	}
+
+	var result string
+
+	for i := 0; i < len(columnIdsFull); i++ {
+		key := columnIdsFull[i]
+		if len(crateTracker[key].crates) > 0 {
+			result += crateTracker[key].crates[0]
+		}
+	}
+
+	fmt.Printf("result: %v \n", result)
+
+	return result, nil
+}
+
+func MoveCrateWithCrateMover9001(origin, dest []string, count int) ([]string, []string) {
+	var ret []string
+
+	if len(origin) == count {
+		ret = append(ret, origin[:]...)
+	} else if len(origin) > 0 || len(origin) < count {
+		ret = append(ret, origin[count:]...)
+	}
+
+	var ter []string
+
+	if len(origin) > 0 || len(origin) < count {
+		ter = append(ter, origin[:count]...)
+	}
+	ter = append(ter, dest[:]...)
+	return ret, ter
 }

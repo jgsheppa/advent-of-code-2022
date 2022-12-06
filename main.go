@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	topCrates, err := dayFive.FindTopCrates("puzzle_input_5.txt", "puzzle_input_5_map.txt")
+	topCrates, err := dayFive.FindTopCratesWithCrateMover9001("puzzle_input_5.txt", "puzzle_input_5_map.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
