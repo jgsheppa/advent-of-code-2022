@@ -12,9 +12,9 @@ func main() {
 	if err != nil {
 		fmt.Printf("error while reading file: %v", err)
 	}
-	startOfPacket, err := daySix.FindStartOfPacket(signal)
+	startOfPacket, err := daySix.FindStartOfMessage(signal)
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
-	fmt.Printf("FindStartOfPacket: %v \n", startOfPacket)
+	fmt.Printf("FindStartOfMessage: %v \n", startOfPacket)
 }

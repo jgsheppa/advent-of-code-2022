@@ -13,10 +13,36 @@ func FindStartOfPacket(signal string) (int, error) {
 		var symbol string
 		symbol = signal[start:end]
 
-		set[symbol[0]] = exists
-		set[symbol[1]] = exists
-		set[symbol[2]] = exists
-		set[symbol[3]] = exists
+		for _, ch := range symbol {
+			set[byte(ch)] = exists
+		}
+
+		if len(set) == len(symbol) {
+			break
+		}
+
+		firstMarkerAfterNSymbols++
+	}
+
+	return firstMarkerAfterNSymbols, nil
+}
+
+func FindStartOfMessage(signal string) (int, error) {
+
+	firstMarkerAfterNSymbols := 14
+	var exists = struct{}{}
+
+	for i := 0; i < len(signal)-13; i++ {
+		set := make(map[byte]struct{})
+
+		start := i
+		end := i + 14
+		var symbol string
+		symbol = signal[start:end]
+
+		for _, ch := range symbol {
+			set[byte(ch)] = exists
+		}
 
 		if len(set) == len(symbol) {
 			break

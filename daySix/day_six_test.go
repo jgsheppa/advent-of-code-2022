@@ -27,3 +27,29 @@ func TestFindStartOfPacket(t *testing.T) {
 		})
 	}
 }
+
+func TestFindStartOfMessage(t *testing.T) {
+	tests := []struct {
+		name  string
+		input string
+		want  int
+	}{
+		{"one", "mjqjpqmgbljsphdztnvjfqwrcgsmlb", 19},
+		{"two", "bvwbjplbgvbhsrlpgdmjqwftvncz", 23},
+		{"three", "nppdvjthqldpwncqszvftbrmjlhg", 23},
+		{"four", "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", 29},
+		{"five", "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", 26},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got, err := FindStartOfMessage(tc.input)
+			if err != nil {
+				t.Errorf("got following error: %v", err)
+			}
+			if got != tc.want {
+				t.Errorf("got %v -- want %v", got, tc.want)
+			}
+		})
+	}
+}
