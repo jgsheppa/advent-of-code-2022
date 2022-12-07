@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		fmt.Printf("error while reading file: %v", err)
 	}
-	startOfPacket, err := daySix.FindStartOfMessage(signal)
+	startOfPacket, err := daySix.FindStartOfMessageOrSignal(signal, 14)
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}

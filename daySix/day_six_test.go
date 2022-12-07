@@ -17,7 +17,7 @@ func TestFindStartOfPacket(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := FindStartOfPacket(tc.input)
+			got, err := FindStartOfMessageOrSignal(tc.input, 4)
 			if err != nil {
 				t.Errorf("got following error: %v", err)
 			}
@@ -43,7 +43,7 @@ func TestFindStartOfMessage(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			got, err := FindStartOfMessage(tc.input)
+			got, err := FindStartOfMessageOrSignal(tc.input, 14)
 			if err != nil {
 				t.Errorf("got following error: %v", err)
 			}

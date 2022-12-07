@@ -1,42 +1,15 @@
 package daySix
 
-func FindStartOfPacket(signal string) (int, error) {
+func FindStartOfMessageOrSignal(signal string, length int) (int, error) {
 
-	firstMarkerAfterNSymbols := 4
+	firstMarkerAfterNSymbols := length
 	var exists = struct{}{}
 
-	for i := 0; i < len(signal)-3; i++ {
+	for i := 0; i < len(signal)-length-1; i++ {
 		set := make(map[byte]struct{})
 
 		start := i
-		end := i + 4
-		var symbol string
-		symbol = signal[start:end]
-
-		for _, ch := range symbol {
-			set[byte(ch)] = exists
-		}
-
-		if len(set) == len(symbol) {
-			break
-		}
-
-		firstMarkerAfterNSymbols++
-	}
-
-	return firstMarkerAfterNSymbols, nil
-}
-
-func FindStartOfMessage(signal string) (int, error) {
-
-	firstMarkerAfterNSymbols := 14
-	var exists = struct{}{}
-
-	for i := 0; i < len(signal)-13; i++ {
-		set := make(map[byte]struct{})
-
-		start := i
-		end := i + 14
+		end := i + length
 		var symbol string
 		symbol = signal[start:end]
 
