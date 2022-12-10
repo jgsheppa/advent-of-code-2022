@@ -17,11 +17,11 @@ func ReadFile(filename string) ([]string, error) {
 	return strings.Split(output, "\n"), nil
 }
 
-func ReadSignal(filename string) (string, error) {
-	b, err := os.ReadFile(filename)
-	if err != nil {
-		return "", err
+func Contains(sl []string, name string) bool {
+	for _, value := range sl {
+		if value == name {
+			return true
+		}
 	}
-	output := string(b)
-	return output, nil
+	return false
 }

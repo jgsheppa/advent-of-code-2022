@@ -2,19 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/jgsheppa/advent-of-code-2022/common"
-	"github.com/jgsheppa/advent-of-code-2022/daySix"
+	"github.com/jgsheppa/advent-of-code-2022/daySeven"
 )
 
 func main() {
 
-	signal, err := common.ReadSignal("puzzle_input_day_6.txt")
-	if err != nil {
-		fmt.Printf("error while reading file: %v", err)
-	}
-	startOfPacket, err := daySix.FindStartOfMessageOrSignal(signal, 14)
+	memory, err := daySeven.DeleteDirectory("puzzle_input_day_7.txt")
 	if err != nil {
 		fmt.Printf("Received following error: %v", err)
 	}
-	fmt.Printf("FindStartOfMessage: %v \n", startOfPacket)
+	fmt.Printf("FindDirectoryWithMostMemory: %v \n", memory)
 }
